@@ -1,5 +1,12 @@
 "use client";
-import { createContext, useContext, useEffect, useState } from "react";
+
+import React, {
+    createContext,
+    useContext,
+    useEffect,
+    useState,
+    ReactNode,
+} from "react";
 
 interface User {
     name: string;
@@ -10,30 +17,51 @@ interface User {
 interface AuthContextType {
     user: User | null;
     setUser: (user: User | null) => void;
-    refreshUser: () => void;
+    refreshUser: () => Promise<void>;
     logout: () => Promise<void>;
     loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
     const checkAuth = async () => {
         setLoading(true);
         try {
-            const res = await fetch("http://localhost:8000/api/users/check-auth", {
-                credentials: "include",
-            });
+            const res = await fetch(
+                `http://localhost:8000/api/users/check-auth`,
+                {
+                    credentials: "include",
+                }
+            );
             const data = await res.json();
+            console.log("checkAuth response:", data);
             setUser(data.success ? data.user : null);
-        } catch {
+        } catch (error) {
+            console.error("checkAuth error:", error);
             setUser(null);
         } finally {
             setLoading(false);
         }
+    };
+
+    const logout = async () => {
+        try {
+            await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/logout`, {
+                method: "POST",
+                credentials: "include",
+            });
+            setUser(null);
+        } catch (error) {
+            console.error("logout error:", error);
+        }
+    };
+
+    const refreshUser = async () => {
+        await checkAuth();
     };
 
     useEffect(() => {
@@ -42,20 +70,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         return () => window.removeEventListener("focus", checkAuth);
     }, []);
 
-    const logout = async () => {
-        await fetch("http://localhost:8000/api/users/logout", {
-            method: "POST",
-            credentials: "include",
-        });
-        setUser(null);
-    };
-
-    const refreshUser = async () => {
-        await checkAuth();
-    };
-
     return (
-        <AuthContext.Provider value={{ user, setUser, logout, refreshUser, loading }}>
+        <AuthContext.Provider
+            value={{ user, setUser, logout, refreshUser, loading }}
+        >
             {children}
         </AuthContext.Provider>
     );
@@ -63,6 +81,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 export function useAuth() {
     const context = useContext(AuthContext);
-    if (!context) throw new Error("useAuth must be used within AuthProvider");
+    if (!context) {
+        throw new Error("useAuth must be used within an AuthProvider");
+    }
     return context;
 }

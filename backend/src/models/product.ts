@@ -8,7 +8,10 @@ export interface IProduct extends Document {
     category: string;
     quantity: number;
     isActive: boolean;
+    viewCount: number;
+    salesCount: number;
     createdBy: mongoose.Types.ObjectId;
+    embedding?: number[];  // <-- Added for vector search
     createdAt?: Date;
     updatedAt?: Date;
 }
@@ -47,10 +50,23 @@ const productSchema = new Schema<IProduct>(
             type: Boolean,
             default: true,
         },
+        viewCount: {
+            type: Number,
+            default: 0,
+        },
+        salesCount: {
+            type: Number,
+            default: 0,
+        },
         createdBy: {
             type: Schema.Types.ObjectId,
             ref: 'User',
             required: true,
+        },
+        embedding: {
+            type: [Number], // <- Store embedding as array of numbers
+            required: false,
+            default: undefined,
         },
     },
     {

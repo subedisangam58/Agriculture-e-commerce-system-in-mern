@@ -1,10 +1,9 @@
 import { ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { toast } from "react-toastify";
-import axios from "axios";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+    return twMerge(clsx(inputs));
 }
 
 export const handleSuccess = (msg: string) => {

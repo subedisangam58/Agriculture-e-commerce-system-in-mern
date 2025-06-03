@@ -5,7 +5,8 @@ import {
     getOrderById,
     getOrdersByUser,
     updateOrderStatus,
-    deleteOrder
+    deleteOrder,
+    getOrdersByMe
 } from '../controllers/order.controller';
 import { protect } from '../middlewares/protect';
 
@@ -19,6 +20,8 @@ router.get('/', protect, getAllOrders);
 
 // Get a single order by ID
 router.get('/:id', protect, getOrderById);
+
+router.get('/user/me', protect, getOrdersByMe);
 
 // Get all orders for a specific user (if logged-in user matches the ID or is admin)
 router.get('/user/:userId', protect, getOrdersByUser);

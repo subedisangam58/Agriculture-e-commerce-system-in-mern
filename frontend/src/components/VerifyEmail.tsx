@@ -52,6 +52,31 @@ function VerifyEmail() {
         }
     };
 
+    // const handleResendOtp = async () => {
+    //     if (!email) {
+    //         toast.error("Email is missing from the URL");
+    //         return;
+    //     }
+
+    //     try {
+    //         const res = await fetch("http://localhost:8000/api/users/resend-otp", {
+    //             method: "POST",
+    //             headers: { "Content-Type": "application/json" },
+    //             body: JSON.stringify({ email }),
+    //         });
+
+    //         const data = await res.json();
+    //         if (res.ok && data.success) {
+    //             toast.success("OTP resent successfully!");
+    //         } else {
+    //             toast.error(data.message || "Failed to resend OTP.");
+    //         }
+    //     } catch (err) {
+    //         toast.error("Error resending OTP. Please try again.");
+    //     }
+    // };
+
+
     return (
         <div className="min-h-screen flex flex-col justify-center items-center bg-gray-50 px-4 py-12">
             <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full text-center">
@@ -82,7 +107,14 @@ function VerifyEmail() {
                 </form>
 
                 <p className="text-sm text-gray-500 mt-6">
-                    Didn't receive the code? <button className="text-green-600 hover:underline">Resend</button>
+                    Didn't receive the code? <button
+                        type="button"
+                        // onClick={handleResendOtp}
+                        className="text-green-600 hover:underline"
+                    >
+                        Resend
+                    </button>
+
                 </p>
 
                 <Link

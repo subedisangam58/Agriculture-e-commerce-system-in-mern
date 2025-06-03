@@ -1,14 +1,17 @@
 import express from 'express';
+import multer from 'multer';
 import {
     addProduct,
     getProducts,
     getProductById,
     getProductsByCategory,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getTopSellingProducts,
+    getMostViewedProducts,
+    searchProductsByVector
 } from '../controllers/product.controller';
 import { protect } from '../middlewares/protect';
-import multer from 'multer';
 
 // Configure multer for image uploads
 const upload = multer({ dest: 'uploads/' });
@@ -17,10 +20,13 @@ const router = express.Router();
 
 // Public routes
 router.get('/', getProducts);
-router.get('/:id', getProductById);
+router.get('/top-selling', getTopSellingProducts);
+router.get('/most-viewed', getMostViewedProducts);
 router.get('/category/:category', getProductsByCategory);
+router.get('/semantic-search', searchProductsByVector); // Local vector search
+router.get('/:id', getProductById);
 
-// Protected routes (requires user auth)
+// Protected routes
 router.post('/addproduct', protect, upload.single('image'), addProduct);
 router.put('/:id', protect, upload.single('image'), updateProduct);
 router.delete('/:id', protect, deleteProduct);

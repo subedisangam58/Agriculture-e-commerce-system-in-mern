@@ -72,7 +72,7 @@ function OrderHistory() {
                 activePage="orders"
             />
 
-            <div className="flex-1 overflow-auto p-6 pt-30">
+            <div className="flex-1 overflow-auto p-6 pt-10">
                 <header className="flex justify-between items-center mb-6">
                     <h1 className="text-3xl font-bold text-gray-800">My Orders</h1>
                     <button

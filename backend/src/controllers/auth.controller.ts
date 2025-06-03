@@ -9,8 +9,9 @@ import {
     sendPasswordResetEmail,
     sendResetSuccessEmail,
 } from '../utils/mailer';
-
+import { notifyUser } from '../utils/notifyUser';
 import { Session } from 'express-session';
+import { uploadToCloudinary } from '../utils/cloudinary';
 
 interface AuthenticatedRequest extends Request {
     session: Session & {
@@ -55,6 +56,7 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
 
         await user.save();
         await sendVerificationEmail(user.email, verificationToken);
+        await notifyUser({ userId: (user._id as unknown as string).toString(), message: 'Welcome! Please verify your email.', type: 'account' });
 
         const { password: _, verificationToken: __, verificationTokenExpiresAt: ___, ...sanitizedUser } = user.toObject();
 
@@ -86,6 +88,8 @@ export const verifyEmail = async (req: AuthenticatedRequest, res: Response): Pro
         await user.save();
 
         await sendWelcomeEmail(user.email, user.name);
+        await notifyUser({ userId: (user._id as unknown as string).toString(), message: 'Email verified successfully!', type: 'account' });
+
         req.session.userId = (user._id as unknown as string).toString();
 
         const { password: _, verificationToken: __, verificationTokenExpiresAt: ___, ...sanitizedUser } = user.toObject();
@@ -118,6 +122,8 @@ export const login = async (req: AuthenticatedRequest, res: Response): Promise<v
         user.lastLogin = new Date();
         await user.save();
 
+        await notifyUser({ userId: user._id.toString(), message: 'Logged in successfully!', type: 'auth' });
+
         const { password: _, ...sanitizedUser } = user.toObject();
         res.status(200).json({
             success: true,
@@ -134,7 +140,7 @@ export const logout = async (req: AuthenticatedRequest, res: Response): Promise<
         if (err) {
             res.status(500).json({ success: false, message: 'Logout failed' });
         } else {
-            res.clearCookie('sid'); // 'sid' must match the cookie name from server.ts
+            res.clearCookie('sid');
             res.status(200).json({ success: true, message: 'Logged out successfully' });
         }
     });
@@ -153,6 +159,7 @@ export const forgotPassword = async (req: Request, res: Response): Promise<void>
         user.resetPasswordExpiresAt = new Date(Date.now() + 60 * 60 * 1000);
         await user.save();
         await sendPasswordResetEmail(user.email, `${process.env.CLIENT_URL}/reset-password/${resetToken}`);
+        await notifyUser({ userId: user._id.toString(), message: 'Password reset link sent to your email.', type: 'security' });
         res.status(200).json({ success: true, message: 'Password reset link sent to your email' });
     } catch (error: any) {
         res.status(400).json({ success: false, message: error.message });
@@ -166,7 +173,7 @@ export const resetPassword = async (req: Request, res: Response): Promise<void> 
         const user = await User.findOne({
             resetPasswordToken: token,
             resetPasswordExpiresAt: { $gt: new Date() },
-        });
+        }) as (InstanceType<typeof User> & { _id: string });
         if (!user) {
             res.status(400).json({ success: false, message: 'Invalid or expired reset token' });
             return;
@@ -177,6 +184,7 @@ export const resetPassword = async (req: Request, res: Response): Promise<void> 
         user.resetPasswordExpiresAt = undefined;
         await user.save();
         await sendResetSuccessEmail(user.email);
+        await notifyUser({ userId: user._id.toString(), message: 'Your password was reset successfully.', type: 'security' });
         res.status(200).json({ success: true, message: 'Password reset successful.' });
     } catch (error: any) {
         res.status(400).json({ success: false, message: error.message });
@@ -187,7 +195,7 @@ export const checkAuth = async (req: AuthenticatedRequest, res: Response): Promi
     try {
         const userId = req.session.userId;
         if (!userId) {
-            res.status(401).json({ success: false, message: 'Not authenticated' });
+            res.status(200).json({ success: false, message: 'Not authenticated' });
             return;
         }
 
@@ -198,12 +206,9 @@ export const checkAuth = async (req: AuthenticatedRequest, res: Response): Promi
         }
 
         const { password: _, ...sanitizedUser } = user.toObject();
-        res.status(200).json({
-            success: true,
-            user: sanitizedUser,
-        });
+        res.status(200).json({ success: true, user: sanitizedUser });
     } catch (error: any) {
-        res.status(400).json({ success: false, message: error.message });
+        res.status(500).json({ success: false, message: error.message });
     }
 };
 
@@ -215,7 +220,10 @@ export const updateProfile = async (req: AuthenticatedRequest, res: Response): P
             return;
         }
 
-        const { name, phone, address, imageUrl } = req.body;
+        console.log("➡️ req.body:", req.body);
+        console.log("➡️ req.file:", req.file);
+
+        const { name, phone, address } = req.body;
 
         if (!name || !phone || !address) {
             res.status(400).json({
@@ -234,21 +242,30 @@ export const updateProfile = async (req: AuthenticatedRequest, res: Response): P
         user.name = name;
         user.phone = phone;
         user.address = address;
-        if (imageUrl !== undefined) {
-            user.imageUrl = imageUrl;
+
+        if (req.file) {
+            console.log("📦 Uploading image...");
+            const uploaded = await uploadToCloudinary(req.file.path); // or req.file.buffer
+            user.imageUrl = (uploaded as { secure_url: string }).secure_url;
         }
 
         await user.save();
+        await notifyUser({ userId, message: 'Your profile was updated.', type: 'profile' });
 
         const { password: _, ...sanitizedUser } = user.toObject();
+
         res.status(200).json({
             success: true,
             message: 'Profile updated successfully',
             user: sanitizedUser,
         });
+
     } catch (error: any) {
-        console.error("Error in updateProfile:", error);
-        res.status(500).json({ success: false, message: error.message || 'Failed to update profile' });
+        console.error("updateProfile error:", error);
+        res.status(500).json({
+            success: false,
+            message: error.message || "Server Error"
+        });
     }
 };
 

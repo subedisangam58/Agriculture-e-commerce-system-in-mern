@@ -101,10 +101,13 @@ function Products() {
                         <div className="p-4">
                             <h3 className="text-xl font-semibold text-gray-800">{product.name}</h3>
                             <p className="text-sm text-gray-500">Locally Sourced</p>
-                            <p className="text-green-600 font-bold mt-2">${product.price.toFixed(2)}</p>
+                            <p className="text-sm text-gray-600 mt-1">
+                                {product.description.split(" ").slice(0, 12).join(" ")}...
+                            </p>
+                            <p className="text-green-600 font-bold mt-2">Rs. {product.price.toFixed(2)}</p>
                             <button
                                 onClick={() => router.push(`/products/${product._id}`)}
-                                className="mt-4 inline-block text-sm text-white bg-orange-500 px-4 py-2 rounded hover:bg-orange-600"
+                                className="mt-4 inline-block text-sm text-white bg-orange-500 px-4 py-2 rounded hover:bg-orange-600 cursor-pointer"
                             >
                                 View
                             </button>

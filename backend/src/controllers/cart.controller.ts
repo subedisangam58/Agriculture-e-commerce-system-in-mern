@@ -1,11 +1,12 @@
 import { Response } from 'express';
 import { AuthenticatedRequest } from '../types/CustomRequests';
 import Cart from '../models/cart';
+import { notifyUser } from '../utils/notifyUser';
 
 export const addToCart = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
     try {
         const { productId, quantity } = req.body;
-        const userId = req.user?._id;
+        const userId = req.user?._id as string;
 
         if (!productId || !quantity || !userId) {
             res.status(400).json({ success: false, message: 'Missing productId, quantity, or user' });
@@ -17,6 +18,7 @@ export const addToCart = async (req: AuthenticatedRequest, res: Response): Promi
         if (existingItem) {
             existingItem.quantity += quantity;
             await existingItem.save();
+            await notifyUser({ userId: userId.toString(), message: 'Cart item quantity updated.', type: 'cart' });
             res.status(200).json({
                 success: true,
                 message: 'Cart updated',
@@ -25,6 +27,7 @@ export const addToCart = async (req: AuthenticatedRequest, res: Response): Promi
         } else {
             const cartItem = new Cart({ user: userId, product: productId, quantity });
             await cartItem.save();
+            await notifyUser({ userId: userId.toString(), message: 'Item added to your cart.', type: 'cart' });
             res.status(201).json({
                 success: true,
                 message: 'Item added to cart',
@@ -39,7 +42,7 @@ export const addToCart = async (req: AuthenticatedRequest, res: Response): Promi
 
 export const getUserCart = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
     try {
-        const userId = req.user?._id;
+        const userId = req.user?._id as string;
 
         if (!userId) {
             res.status(401).json({ success: false, message: 'Unauthorized' });
@@ -59,7 +62,7 @@ export const getUserCart = async (req: AuthenticatedRequest, res: Response): Pro
 
 export const updateCartItem = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
     try {
-        const userId = req.user?._id;
+        const userId = req.user?._id as string;
         const { id } = req.params;
         const { quantity } = req.body;
 
@@ -81,6 +84,7 @@ export const updateCartItem = async (req: AuthenticatedRequest, res: Response): 
 
         item.quantity = quantity;
         await item.save();
+        await notifyUser({ userId: userId.toString(), message: 'Cart item updated.', type: 'cart' });
 
         res.status(200).json({ success: true, message: "Quantity updated", cart: item });
     } catch (error: any) {
@@ -89,3 +93,23 @@ export const updateCartItem = async (req: AuthenticatedRequest, res: Response): 
     }
 };
 
+export const deleteCartItem = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+    try {
+        const userId = req.user?._id as string;
+        const { id } = req.params;
+
+        const item = await Cart.findOneAndDelete({ _id: id, user: userId });
+
+        if (!item) {
+            res.status(404).json({ success: false, message: "Item not found or not authorized" });
+            return;
+        }
+
+        await notifyUser({ userId: userId.toString(), message: 'Item removed from cart.', type: 'cart' });
+
+        res.status(200).json({ success: true, message: "Item deleted", cart: item });
+    } catch (error: any) {
+        console.error("Error in deleteCartItem:", error);
+        res.status(500).json({ success: false, message: error.message || "Delete failed" });
+    }
+};

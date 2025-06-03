@@ -16,6 +16,7 @@ interface CartItem {
         category: string;
     };
     quantity: number;
+    selected?: boolean; // <-- New flag
 }
 
 function Cart() {
@@ -47,7 +48,12 @@ function Cart() {
                 throw new Error(`Error ${res.status}: ${text}`);
             }
             const data = await res.json();
-            setCart(data.cart || []);
+
+            // Set default selection
+            setCart((data.cart || []).map((item: CartItem) => ({
+                ...item,
+                selected: true,
+            })));
         } catch (err: any) {
             setError(err.message || "Something went wrong");
         } finally {
@@ -61,7 +67,8 @@ function Cart() {
 
     useEffect(() => {
         const subtotal = cart.reduce(
-            (sum, item) => sum + item.quantity * item.product.price,
+            (sum, item) =>
+                item.selected ? sum + item.quantity * item.product.price : sum,
             0
         );
         setTotal(subtotal);
@@ -99,9 +106,20 @@ function Cart() {
                 method: "DELETE",
                 credentials: "include",
             });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.message || "Failed to remove item");
 
+            const contentType = res.headers.get("content-type") || "";
+
+            if (!res.ok) {
+                if (contentType.includes("application/json")) {
+                    const data = await res.json();
+                    throw new Error(data.message || "Failed to remove item");
+                } else {
+                    const text = await res.text();
+                    throw new Error(`Error ${res.status}: ${text}`);
+                }
+            }
+
+            const data = await res.json();
             setCart((prev) => prev.filter((item) => item._id !== itemId));
         } catch (err: any) {
             alert(err.message || "Delete failed");
@@ -109,9 +127,19 @@ function Cart() {
     };
 
     const handleProceedToCheckout = () => {
-        if (cart.length === 0) return;
-        localStorage.setItem("checkoutCart", JSON.stringify(cart));
+        const selectedItems = cart.filter((item) => item.selected);
+        if (selectedItems.length === 0) return;
+
+        localStorage.setItem("checkoutCart", JSON.stringify(selectedItems));
         router.push("/client/checkout");
+    };
+
+    const toggleSelection = (itemId: string) => {
+        setCart((prev) =>
+            prev.map((item) =>
+                item._id === itemId ? { ...item, selected: !item.selected } : item
+            )
+        );
     };
 
     if (loading || loadingCart) {
@@ -130,7 +158,7 @@ function Cart() {
                 activePage="cart"
             />
 
-            <div className="flex-1 overflow-auto">
+            <div className="flex-1 overflow-auto pt-0">
                 {/* Header */}
                 <header className="bg-white shadow-sm">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -149,7 +177,7 @@ function Cart() {
                 </header>
 
                 {/* Main Content */}
-                <main className="bg-[#fdfced] px-6 md:px-20 py-10 min-h-screen pt-20">
+                <main className="bg-[#fdfced] px-6 md:px-20 py-10 min-h-screen pt-10">
                     <div className="flex flex-col lg:flex-row gap-10">
                         {/* Cart Items */}
                         <div className="flex-1 space-y-6">
@@ -162,6 +190,11 @@ function Cart() {
                                         className="bg-white rounded-lg shadow p-4 flex items-center justify-between"
                                     >
                                         <div className="flex items-center gap-4">
+                                            <input
+                                                type="checkbox"
+                                                checked={item.selected ?? true}
+                                                onChange={() => toggleSelection(item._id)}
+                                            />
                                             <img
                                                 src={item.product.imageUrl || "/images/placeholder.jpg"}
                                                 alt={item.product.name}
@@ -211,6 +244,18 @@ function Cart() {
                         <div className="w-full lg:w-1/3">
                             <div className="bg-white rounded-lg shadow p-6">
                                 <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
+
+                                {/* List of selected products */}
+                                <div className="mb-4 space-y-2">
+                                    {cart.filter(item => item.selected).map(item => (
+                                        <div key={item._id} className="flex justify-between text-gray-700">
+                                            <span>{item.product.name} × {item.quantity}</span>
+                                            <span>${(item.quantity * item.product.price).toFixed(2)}</span>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Subtotal and Total */}
                                 <div className="flex justify-between text-gray-600 mb-2">
                                     <span>Subtotal</span>
                                     <span>${total.toFixed(2)}</span>
@@ -220,6 +265,8 @@ function Cart() {
                                     <span>Total</span>
                                     <span>${total.toFixed(2)}</span>
                                 </div>
+
+                                {/* Checkout button */}
                                 <button
                                     onClick={handleProceedToCheckout}
                                     className="bg-orange-500 text-white w-full py-3 rounded hover:bg-orange-600 transition"
@@ -228,6 +275,7 @@ function Cart() {
                                 </button>
                             </div>
                         </div>
+
                     </div>
                 </main>
             </div>

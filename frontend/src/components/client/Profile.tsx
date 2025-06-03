@@ -18,6 +18,7 @@ const UserProfileCard = () => {
         address: "",
         imageUrl: "",
     });
+    const [profileImage, setProfileImage] = useState<File | null>(null);
     const [isSidebarOpen, setSidebarOpen] = useState(true);
 
     const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
@@ -42,6 +43,13 @@ const UserProfileCard = () => {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setProfileImage(file);
+        }
+    };
+
     const handleSave = async () => {
         if (!formData.name || !formData.phone || !formData.address) {
             toast.error("Name, phone, and address are required");
@@ -49,11 +57,16 @@ const UserProfileCard = () => {
         }
 
         try {
+            const body = new FormData();
+            body.append("name", formData.name);
+            body.append("phone", formData.phone);
+            body.append("address", formData.address);
+            if (profileImage) body.append("profileImage", profileImage);
+
             const res = await fetch("http://localhost:8000/api/users/update-profile", {
                 method: "PATCH",
-                headers: { "Content-Type": "application/json" },
                 credentials: "include",
-                body: JSON.stringify(formData),
+                body,
             });
 
             const data = await res.json();
@@ -61,6 +74,7 @@ const UserProfileCard = () => {
 
             toast.success("Profile updated successfully!");
             setEditMode(false);
+            setProfileImage(null);
             refreshUser();
         } catch (err: any) {
             toast.error(err.message || "Something went wrong");
@@ -83,18 +97,29 @@ const UserProfileCard = () => {
                 activePage="profile"
             />
 
-            <div className="flex-1 overflow-auto pt-20">
-                <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md mt-10">
+            <div className="flex-1 overflow-auto">
+                <div className="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow-md mt-10">
                     <h2 className="text-2xl font-bold mb-4 text-gray-800">Profile Overview</h2>
 
                     <div className="flex flex-col md:flex-row items-center gap-6 mb-6">
                         <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-blue-100">
                             <img
-                                src={formData.imageUrl || "https://via.placeholder.com/150"}
+                                src={
+                                    profileImage
+                                        ? URL.createObjectURL(profileImage)
+                                        : formData.imageUrl || "https://via.placeholder.com/150"
+                                }
                                 alt="Profile"
                                 className="object-cover w-full h-full"
                             />
                         </div>
+                        {editMode && (
+                            <div>
+                                <form onSubmit={(e) => e.preventDefault()}>
+                                    <input type="file" onChange={handleFileChange} />
+                                </form>
+                            </div>
+                        )}
                         <div className="flex-1">
                             <h3 className="text-xl font-semibold text-gray-700">{formData.name}</h3>
                             <p className="text-gray-500">{formData.email}</p>
@@ -119,11 +144,14 @@ const UserProfileCard = () => {
                         ))}
                     </div>
 
-                    <div className="mt-6 flex justify-end gap-4">
+                    <div className="mt-6 flex justify-start gap-4">
                         {editMode ? (
                             <>
                                 <button
-                                    onClick={() => setEditMode(false)}
+                                    onClick={() => {
+                                        setEditMode(false);
+                                        setProfileImage(null);
+                                    }}
                                     className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400"
                                 >
                                     Cancel

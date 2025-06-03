@@ -1,0 +1,602 @@
+{
+  "crops": [
+    {
+      "name": "Maize",
+      "category": "Cereal Crop",
+      "introduction": "Maize is a major food crop in Nepal, grown particularly in the hilly and mid-hilly regions.",
+      "seed_selection": "Select high-yielding varieties with disease resistance suitable for local climate.",
+      "fertilization_and_tilling": "Use organic fertilizers before planting; balanced use of nitrogen, phosphorus, and potassium.",
+      "irrigation": "Maize requires 2-3 irrigations, particularly during germination, flowering, and grain-filling stages.",
+      "crop_rotation_and_intercropping": "Maize-wheat, maize-vegetables, maize-millet rotations are common.",
+      "production": "Average production is about 2.8 tons/hectare.",
+      "climate_and_soil": "Warm and humid climate; well-drained soil is ideal.",
+      "uses_and_importance": "Used for making flour, bread, porridge, and animal feed.",
+      "main_varieties": [
+        "Manak",
+        "Rampur-1",
+        "Arun-2",
+        "Kaveri"
+      ],
+      "spacing": "75 cm between rows and 25 cm between plants",
+      "season": "Spring"
+    },
+    {
+      "name": "Rice",
+      "category": "Cereal Crop",
+      "introduction": "Rice is the staple food crop of Nepal, occupying about 45% of the total cultivated area.",
+      "seed_selection": "Choose varieties based on altitude, water availability, and local preferences.",
+      "fertilization_and_tilling": "Requires thorough plowing and puddling; apply farmyard manure 3-4 weeks before transplanting.",
+      "irrigation": "Needs constant water supply during vegetative and reproductive phases.",
+      "crop_rotation_and_intercropping": "Rice-wheat, rice-potato, rice-vegetables rotations are practiced.",
+      "production": "Average yield is around 3.5 tons/hectare.",
+      "climate_and_soil": "Warm and humid climate; clayey loam soil with good water retention capacity.",
+      "uses_and_importance": "Main staple food; used in various traditional dishes and ceremonies.",
+      "main_varieties": [
+        "Khumal-4",
+        "Sabitri",
+        "Radha-4",
+        "Makwanpur-1"
+      ],
+      "spacing": "20 cm between rows and 15 cm between plants",
+      "season": "Summer"
+    },
+    {
+      "name": "Wheat",
+      "category": "Cereal Crop",
+      "introduction": "Wheat is the third most important cereal crop in Nepal after rice and maize.",
+      "seed_selection": "Select rust-resistant varieties suitable for local conditions.",
+      "fertilization_and_tilling": "Deep plowing is beneficial; apply farmyard manure before sowing and NPK fertilizers as recommended.",
+      "irrigation": "About 4-5 irrigations are required, with critical stages being crown root initiation and flowering.",
+      "crop_rotation_and_intercropping": "Rice-wheat rotation is very common in the Terai region.",
+      "production": "Average production is approximately 2.5 tons/hectare.",
+      "climate_and_soil": "Cool and dry climate during growth period; well-drained loamy soil.",
+      "uses_and_importance": "Used for making bread, noodles, and various snacks.",
+      "main_varieties": [
+        "Nepal-297",
+        "Bhrikuti",
+        "Gautam",
+        "WK-1204"
+      ],
+      "spacing": "22-25 cm between rows with continuous sowing",
+      "season": "Winter"
+    },
+    {
+      "name": "Millet",
+      "category": "Cereal Crop",
+      "introduction": "Finger millet is an important traditional crop in Nepal's hill districts.",
+      "seed_selection": "Select seeds from healthy previous crop or certified seeds.",
+      "fertilization_and_tilling": "Requires less fertilizer than other cereals; organic manure is beneficial.",
+      "irrigation": "Mostly grown as rainfed crop; 1-2 irrigations during dry spells.",
+      "crop_rotation_and_intercropping": "Often intercropped with legumes; used in rotation with maize.",
+      "production": "Average production is about 1.2 tons/hectare.",
+      "climate_and_soil": "Adapts to diverse climates; grows well in poor soil conditions.",
+      "uses_and_importance": "Used for making traditional foods like dhindo; important for food security.",
+      "main_varieties": [
+        "Dalle-1",
+        "Okhle-1",
+        "Kabre Kodo",
+        "Seto Kodo"
+      ],
+      "spacing": "10 cm between plants in rows 30 cm apart",
+      "season": "Summer"
+    },
+    {
+      "name": "Potato",
+      "category": "Tuber Crop",
+      "introduction": "Potato is a major cash crop grown throughout Nepal with high importance in food security.",
+      "seed_selection": "Use disease-free and well-sprouted seed tubers of appropriate size.",
+      "fertilization_and_tilling": "Requires well-prepared loose soil; apply farmyard manure and balanced NPK fertilizers.",
+      "irrigation": "Regular irrigation needed, especially during tuber formation.",
+      "crop_rotation_and_intercropping": "Rotate with cereals, legumes, or cole crops; avoid solanaceous crops in rotation.",
+      "production": "Average yield of 14 tons/hectare.",
+      "climate_and_soil": "Cool climate for tuber development; well-drained sandy loam soil.",
+      "uses_and_importance": "Major vegetable crop; used in various culinary preparations.",
+      "main_varieties": [
+        "Kufri Jyoti",
+        "Janakdev",
+        "Cardinal",
+        "Desiree"
+      ],
+      "spacing": "60 cm between rows and 25 cm between plants",
+      "season": "Autumn"
+    },
+    {
+      "name": "Mustard",
+      "category": "Oilseed Crop",
+      "introduction": "Mustard is the main oilseed crop grown in Nepal, particularly in the Terai and mid-hills.",
+      "seed_selection": "Use certified seeds of improved varieties with higher oil content.",
+      "fertilization_and_tilling": "Fine seedbed preparation is essential; apply farmyard manure and NPK fertilizers.",
+      "irrigation": "2-3 irrigations at critical growth stages.",
+      "crop_rotation_and_intercropping": "Often grown as a winter crop after rice or maize.",
+      "production": "Average yield is around 0.9 tons/hectare.",
+      "climate_and_soil": "Cool and dry climate; well-drained loamy soil.",
+      "uses_and_importance": "Oil extraction for cooking; seed cake used as cattle feed.",
+      "main_varieties": [
+        "Pusa Bold",
+        "Krishna",
+        "Pragati",
+        "Bikash"
+      ],
+      "spacing": "30-45 cm between rows with continuous sowing",
+      "season": "Winter"
+    },
+    {
+      "name": "Cardamom",
+      "category": "Spice Crop",
+      "introduction": "Large cardamom is a high-value cash crop grown in the eastern hills of Nepal.",
+      "seed_selection": "Use rhizomes from disease-free, high-yielding plants.",
+      "fertilization_and_tilling": "Apply organic manure; avoid chemical fertilizers for premium production.",
+      "irrigation": "Requires high humidity; irrigate during dry periods.",
+      "crop_rotation_and_intercropping": "Grown as a perennial crop under tree shade; intercropping is limited.",
+      "production": "Average yield is about 450 kg/hectare of dried capsules.",
+      "climate_and_soil": "Humid sub-tropical climate; well-drained sandy loam soil rich in organic matter.",
+      "uses_and_importance": "Major export commodity; used as spice and in traditional medicine.",
+      "main_varieties": [
+        "Ramsey",
+        "Golsey",
+        "Sawney",
+        "Varlangey"
+      ],
+      "spacing": "1.8-2.4 meters between plants",
+      "season": "Monsoon"
+    },
+    {
+      "name": "Ginger",
+      "category": "Spice Crop",
+      "introduction": "Ginger is an important commercial spice crop in Nepal's mid-hill regions.",
+      "seed_selection": "Use disease-free rhizomes with at least one viable bud.",
+      "fertilization_and_tilling": "Apply well-decomposed farmyard manure during land preparation.",
+      "irrigation": "Regular irrigation required but avoid waterlogging.",
+      "crop_rotation_and_intercropping": "Rotated with cereals like maize; sometimes intercropped with legumes.",
+      "production": "Average production is about 12 tons/hectare of fresh rhizomes.",
+      "climate_and_soil": "Warm humid climate; well-drained sandy loam rich in organic matter.",
+      "uses_and_importance": "Used as spice, medicine, and exported as fresh or dried product.",
+      "main_varieties": [
+        "Nase",
+        "Kapurkot Local",
+        "Bhaisey",
+        "Bose"
+      ],
+      "spacing": "25-30 cm between plants in rows 45-60 cm apart",
+      "season": "Spring"
+    },
+    {
+      "name": "Turmeric",
+      "category": "Spice Crop",
+      "introduction": "Turmeric is widely cultivated in the lowland and mid-hill regions of Nepal.",
+      "seed_selection": "Select disease-free rhizomes with 2-3 buds.",
+      "fertilization_and_tilling": "Requires well-prepared loose soil with high organic matter content.",
+      "irrigation": "Regular irrigation needed during growth period.",
+      "crop_rotation_and_intercropping": "Often rotated with cereals or legumes; can be intercropped with maize.",
+      "production": "Average yield is around 15 tons/hectare of fresh rhizomes.",
+      "climate_and_soil": "Warm and humid climate; well-drained loamy soil rich in organic matter.",
+      "uses_and_importance": "Used as spice, coloring agent, and in traditional medicine.",
+      "main_varieties": [
+        "Ranga",
+        "Roma",
+        "Suroma",
+        "Local cultivars"
+      ],
+      "spacing": "25 cm between plants in rows 45 cm apart",
+      "season": "Spring"
+    },
+    {
+      "name": "Lentil",
+      "category": "Pulse Crop",
+      "introduction": "Lentil is the most important pulse crop in Nepal, mainly grown in the Terai region.",
+      "seed_selection": "Use disease-free, uniform-sized seeds of improved varieties.",
+      "fertilization_and_tilling": "Light tillage after rice harvest; low fertilizer requirement due to nitrogen fixation.",
+      "irrigation": "Usually grown as rainfed crop; 1-2 irrigations improve yield.",
+      "crop_rotation_and_intercropping": "Mainly grown after rice in rice-lentil rotation.",
+      "production": "Average yield is about 0.8 tons/hectare.",
+      "climate_and_soil": "Cool and dry climate; well-drained loamy soil.",
+      "uses_and_importance": "Major source of plant protein; used for making dal and various dishes.",
+      "main_varieties": [
+        "Khajura Masuro-1",
+        "Simal",
+        "Sagun",
+        "Black Masuro"
+      ],
+      "spacing": "25-30 cm between rows with continuous sowing",
+      "season": "Winter"
+    },
+    {
+      "name": "Chickpea",
+      "category": "Pulse Crop",
+      "introduction": "Chickpea is an important winter legume crop in Nepal's Terai and inner Terai regions.",
+      "seed_selection": "Select bold, healthy seeds of suitable varieties.",
+      "fertilization_and_tilling": "Minimal fertilizer requirement; seed treatment with Rhizobium culture beneficial.",
+      "irrigation": "Usually grown on residual soil moisture; 1-2 irrigations in dry conditions.",
+      "crop_rotation_and_intercropping": "Often grown after rice; sometimes intercropped with mustard.",
+      "production": "Average yield is around 0.9 tons/hectare.",
+      "climate_and_soil": "Cool dry climate; deep loamy soil with good drainage.",
+      "uses_and_importance": "Rich source of protein; used in various traditional foods.",
+      "main_varieties": [
+        "Tara",
+        "Dhanush",
+        "Kalika",
+        "Avrodhi"
+      ],
+      "spacing": "30 cm between rows with 10 cm between plants",
+      "season": "Winter"
+    },
+    {
+      "name": "Black Gram",
+      "category": "Pulse Crop",
+      "introduction": "Black gram is widely cultivated in Nepal as a summer season pulse crop.",
+      "seed_selection": "Use certified seeds with good germination percentage.",
+      "fertilization_and_tilling": "Requires well-prepared field; light fertilizer application.",
+      "irrigation": "Mostly grown as rainfed crop; irrigation during flowering improves yield.",
+      "crop_rotation_and_intercropping": "Often intercropped with maize; used in rotation with cereals.",
+      "production": "Average yield is about 0.7 tons/hectare.",
+      "climate_and_soil": "Warm humid climate; wide soil adaptability.",
+      "uses_and_importance": "Used for making dal and various traditional dishes.",
+      "main_varieties": [
+        "Kalu",
+        "Bari Mash-1",
+        "Pant U-30",
+        "Local landraces"
+      ],
+      "spacing": "30-45 cm between rows with continuous sowing",
+      "season": "Summer"
+    },
+    {
+      "name": "Tea",
+      "category": "Beverage Crop",
+      "introduction": "Tea is a major plantation crop in eastern Nepal, particularly in Ilam and surrounding districts.",
+      "seed_selection": "Vegetative propagation through cuttings preferred over seeds.",
+      "fertilization_and_tilling": "Regular application of organic and inorganic fertilizers; mulching practiced.",
+      "irrigation": "Irrigation required during dry season; drainage essential during monsoon.",
+      "crop_rotation_and_intercropping": "Permanent plantation crop; shade trees often integrated.",
+      "production": "Average yield ranges from 1.5-2.5 tons/hectare of processed tea.",
+      "climate_and_soil": "Cool humid climate; well-drained acidic soil rich in organic matter.",
+      "uses_and_importance": "Major export commodity; processed into various tea grades.",
+      "main_varieties": [
+        "China hybrid",
+        "Assam variety",
+        "Ambari",
+        "Takda"
+      ],
+      "spacing": "120 cm between rows and 60-75 cm between plants",
+      "season": "Year-round (Spring to Autumn)"
+    },
+    {
+      "name": "Coffee",
+      "category": "Beverage Crop",
+      "introduction": "Coffee is an emerging commercial crop in the mid-hill regions of Nepal.",
+      "seed_selection": "Use seedlings raised from selected beans of productive trees.",
+      "fertilization_and_tilling": "Apply organic manure; mulching essential for moisture conservation.",
+      "irrigation": "Regular irrigation during dry season; avoid waterlogging.",
+      "crop_rotation_and_intercropping": "Grown as permanent crop; often intercropped with fruits or spices initially.",
+      "production": "Average yield is about 800 kg/hectare of dried beans.",
+      "climate_and_soil": "Moderate temperature with distinct wet and dry seasons; well-drained loamy soil.",
+      "uses_and_importance": "Growing export commodity; processed into arabica coffee.",
+      "main_varieties": [
+        "Bourbon",
+        "Typica",
+        "Catura",
+        "Yellow Caturra"
+      ],
+      "spacing": "2-2.5 meters between plants in rows 2.5-3 meters apart",
+      "season": "Spring"
+    },
+    {
+      "name": "Cauliflower",
+      "category": "Vegetable Crop",
+      "introduction": "Cauliflower is a major commercial vegetable in Nepal grown in various agro-ecological zones.",
+      "seed_selection": "Use hybrid seeds for commercial production with good curd quality.",
+      "fertilization_and_tilling": "Requires well-prepared soil with high organic matter and balanced fertilization.",
+      "irrigation": "Regular irrigation needed; avoid water stress during curd formation.",
+      "crop_rotation_and_intercropping": "Rotate with non-cruciferous crops; avoid cabbage family crops in succession.",
+      "production": "Average yield is about 18 tons/hectare.",
+      "climate_and_soil": "Cool climate for curd development; well-drained fertile loamy soil.",
+      "uses_and_importance": "Major commercial vegetable; used in various culinary preparations.",
+      "main_varieties": [
+        "Kathmandu Local",
+        "Snow Crown",
+        "Snow Mystique",
+        "Snowball"
+      ],
+      "spacing": "60 cm between rows and 45 cm between plants",
+      "season": "Winter"
+    },
+    {
+      "name": "Tomato",
+      "category": "Vegetable Crop",
+      "introduction": "Tomato is one of the most important commercial vegetables grown throughout Nepal.",
+      "seed_selection": "Use hybrid seeds for commercial production; disease-resistant varieties preferred.",
+      "fertilization_and_tilling": "Requires well-drained soil with balanced fertilization; staking needed.",
+      "irrigation": "Regular irrigation required; drip irrigation is beneficial.",
+      "crop_rotation_and_intercropping": "Rotate with non-solanaceous crops; avoid eggplant, potato in rotation.",
+      "production": "Average open field yield is about 19 tons/hectare; higher in protected cultivation.",
+      "climate_and_soil": "Warm season crop with mild temperature; well-drained sandy loam soil.",
+      "uses_and_importance": "Essential vegetable used fresh and processed; major cash crop.",
+      "main_varieties": [
+        "Srijana",
+        "Roma",
+        "Manisha",
+        "NC-56"
+      ],
+      "spacing": "60 cm between rows and 45 cm between plants",
+      "season": "Spring"
+    },
+    {
+      "name": "Cucumber",
+      "category": "Vegetable Crop",
+      "introduction": "Cucumber is a popular summer vegetable crop widely grown in Nepal.",
+      "seed_selection": "Use hybrid seeds for better yield and quality; select suitable varieties.",
+      "fertilization_and_tilling": "Requires well-prepared soil with adequate organic matter.",
+      "irrigation": "Regular irrigation needed; mulching beneficial for moisture conservation.",
+      "crop_rotation_and_intercropping": "Rotate with non-cucurbit crops; sometimes intercropped with maize.",
+      "production": "Average yield is about 15 tons/hectare.",
+      "climate_and_soil": "Warm humid climate; well-drained fertile soil.",
+      "uses_and_importance": "Used as salad and vegetable; growing cash crop.",
+      "main_varieties": [
+        "Bhaktapur Local",
+        "Japanese Long Green",
+        "Malini",
+        "Kusume"
+      ],
+      "spacing": "120-150 cm between rows and 60 cm between plants",
+      "season": "Summer"
+    },
+    {
+      "name": "Orange",
+      "category": "Fruit Crop",
+      "introduction": "Sweet orange is an important fruit crop in the mid-hill regions of Nepal.",
+      "seed_selection": "Use grafted plants from certified nurseries.",
+      "fertilization_and_tilling": "Regular application of organic manure; balanced NPK fertilizers.",
+      "irrigation": "Irrigation needed during dry season; mulching beneficial.",
+      "crop_rotation_and_intercropping": "Permanent crop; intercropping possible in young orchards.",
+      "production": "Average yield is about 8-10 tons/hectare in well-managed orchards.",
+      "climate_and_soil": "Subtropical climate; well-drained slightly acidic soil.",
+      "uses_and_importance": "Major fruit crop with high commercial value; source of vitamin C.",
+      "main_varieties": [
+        "Junar",
+        "Mandarin",
+        "Local Sweet Orange",
+        "Suntala"
+      ],
+      "spacing": "5-6 meters between plants",
+      "season": "Winter"
+    },
+    {
+      "name": "Banana",
+      "category": "Fruit Crop",
+      "introduction": "Banana is a major fruit crop in the Terai and lower hills of Nepal.",
+      "seed_selection": "Use disease-free suckers or tissue culture plants.",
+      "fertilization_and_tilling": "Requires high organic matter and balanced fertilization.",
+      "irrigation": "Regular irrigation needed; drainage essential during monsoon.",
+      "crop_rotation_and_intercropping": "Grown as monocrop; intercropping possible in initial stages.",
+      "production": "Average yield is about 16 tons/hectare.",
+      "climate_and_soil": "Hot humid climate; deep well-drained soil rich in organic matter.",
+      "uses_and_importance": "Major fruit crop consumed fresh and processed; important cash crop.",
+      "main_varieties": [
+        "Malbhog",
+        "William Hybrid",
+        "G9",
+        "Mungre"
+      ],
+      "spacing": "2-2.5 meters between plants in rows 2.5-3 meters apart",
+      "season": "Year-round"
+    },
+    {
+      "name": "Mango",
+      "category": "Fruit Crop",
+      "introduction": "Mango is the most important fruit crop in the Terai region of Nepal.",
+      "seed_selection": "Use grafted plants of superior varieties.",
+      "fertilization_and_tilling": "Regular application of organic manure before flowering.",
+      "irrigation": "Irrigation beneficial during flowering and fruit development.",
+      "crop_rotation_and_intercropping": "Permanent crop; intercropping possible in young orchards.",
+      "production": "Average yield is about 10 tons/hectare in commercial orchards.",
+      "climate_and_soil": "Tropical and subtropical climate; deep well-drained soil.",
+      "uses_and_importance": "Major summer fruit with high commercial value.",
+      "main_varieties": [
+        "Maldaha",
+        "Bombay Green",
+        "Dasheri",
+        "Calcuttia Maldaha"
+      ],
+      "spacing": "8-10 meters between plants",
+      "season": "Summer"
+    },
+    {
+      "name": "Sugarcane",
+      "category": "Cash Crop",
+      "introduction": "Sugarcane is an important industrial crop in the Terai region of Nepal.",
+      "seed_selection": "Use disease-free setts from 8-10 month old crop.",
+      "fertilization_and_tilling": "Requires deep plowing and adequate fertilization.",
+      "irrigation": "Regular irrigation needed; critical during tillering and grand growth phase.",
+      "crop_rotation_and_intercropping": "Often rotated with pulses; intercropping with pulses or vegetables in early stage.",
+      "production": "Average yield is about 45 tons/hectare.",
+      "climate_and_soil": "Hot humid climate; deep fertile well-drained soil.",
+      "uses_and_importance": "Raw material for sugar industry; also used for jaggery production.",
+      "main_varieties": [
+        "CoJ-64",
+        "CoS-767",
+        "BO-130",
+        "CoS-8436"
+      ],
+      "spacing": "75-90 cm between rows with continuous placement of setts",
+      "season": "Spring"
+    },
+    {
+      "name": "Jute",
+      "category": "Fiber Crop",
+      "introduction": "Jute is a major cash crop in the eastern Terai region of Nepal.",
+      "seed_selection": "Use certified seeds of improved varieties.",
+      "fertilization_and_tilling": "Requires well-prepared field with adequate nitrogen.",
+      "irrigation": "Regular irrigation required during early growth stage.",
+      "crop_rotation_and_intercropping": "Rotated with rice or wheat; monocropping common.",
+      "production": "Average yield is about 1.8 tons/hectare of fiber.",
+      "climate_and_soil": "Hot humid climate; alluvial soil with good water retention.",
+      "uses_and_importance": "Used for making sacks, ropes, carpets; export commodity.",
+      "main_varieties": [
+        "JRO-524",
+        "JRO-878",
+        "Toosa",
+        "Local white jute"
+      ],
+      "spacing": "30 cm between rows with continuous sowing",
+      "season": "Summer"
+    },
+    {
+      "name": "Garlic",
+      "category": "Spice Crop",
+      "introduction": "Garlic is an important spice crop grown during winter in various parts of Nepal.",
+      "seed_selection": "Use healthy, disease-free cloves of uniform size.",
+      "fertilization_and_tilling": "Requires well-prepared soil with adequate organic matter.",
+      "irrigation": "Light but frequent irrigation beneficial; avoid waterlogging.",
+      "crop_rotation_and_intercropping": "Rotate with non-allium crops; monocropping common.",
+      "production": "Average yield is about 6 tons/hectare.",
+      "climate_and_soil": "Cool dry climate during vegetative growth; well-drained loamy soil.",
+      "uses_and_importance": "Essential spice used in cooking; has medicinal properties.",
+      "main_varieties": [
+        "Nepali Local",
+        "Rose Variety",
+        "Bhaktapur Local",
+        "Chinese"
+      ],
+      "spacing": "15 cm between plants in rows 20 cm apart",
+      "season": "Winter"
+    },
+    {
+      "name": "Onion",
+      "category": "Vegetable Crop",
+      "introduction": "Onion is a widely grown vegetable crop in Nepal with year-round demand.",
+      "seed_selection": "Use either seeds for nursery raising or bulbs for multiplication.",
+      "fertilization_and_tilling": "Requires well-prepared soil with balanced fertilization.",
+      "irrigation": "Regular irrigation needed; critical during bulb development.",
+      "crop_rotation_and_intercropping": "Rotate with non-allium crops; monocropping common.",
+      "production": "Average yield is about 12 tons/hectare.",
+      "climate_and_soil": "Cool climate for bulb development; well-drained sandy loam soil.",
+      "uses_and_importance": "Essential kitchen item used fresh and as spice.",
+      "main_varieties": [
+        "Red Creole",
+        "Agrifound Light Red",
+        "Nasik Red",
+        "Pusa Red"
+      ],
+      "spacing": "15 cm between plants in rows 20 cm apart",
+      "season": "Winter"
+    },
+    {
+      "name": "Soybean",
+      "category": "Oilseed/Pulse Crop",
+      "introduction": "Soybean is grown in Nepal both as an oilseed and pulse crop, mainly in hilly regions.",
+      "seed_selection": "Use certified seeds with good germination rate.",
+      "fertilization_and_tilling": "Moderate fertilizer requirement; seed inoculation with Rhizobium beneficial.",
+      "irrigation": "Mostly grown as rainfed crop; irrigation beneficial during flowering and pod filling.",
+      "crop_rotation_and_intercropping": "Often intercropped with maize; used in rotation with cereals.",
+      "production": "Average yield is about 1 ton/hectare.",
+      "climate_and_soil": "Warm climate with moderate rainfall; wide soil adaptability.",
+      "uses_and_importance": "Used for oil extraction, as pulse, and for making various food products.",
+      "main_varieties": [
+        "Lumle-1",
+        "Cobb",
+        "Ankur",
+        "Kavre Local"
+      ],
+      "spacing": "45 cm between rows and 10 cm between plants",
+      "season": "Summer"
+    },
+    {
+      "name": "Barley",
+      "category": "Cereal Crop",
+      "introduction": "Barley is an important winter cereal crop in the high hills and mountains of Nepal.",
+      "seed_selection": "Use clean, graded seeds of improved varieties.",
+      "fertilization_and_tilling": "Moderate fertilizer requirement; farmyard manure application beneficial.",
+      "irrigation": "Usually grown as rainfed crop; 1-2 irrigations improve yield.",
+      "crop_rotation_and_intercropping": "Often grown after legumes; monocropping common.",
+      "production": "Average yield is about 1.2 tons/hectare.",
+      "climate_and_soil": "Cool climate; wide soil adaptability including marginal lands.",
+      "uses_and_importance": "Used for making flour, animal feed, and local beverages.",
+      "main_varieties": [
+        "Bonus",
+        "Solu Uwa",
+        "NB-1003",
+        "Galt"
+      ],
+      "spacing": "22-25 cm between rows with continuous sowing",
+      "season": "Winter"
+    },
+    {
+      "name": "Buckwheat",
+      "category": "Pseudocereal Crop",
+      "introduction": "Buckwheat is an important traditional crop in the high hills and mountains of Nepal.",
+      "seed_selection": "Use clean seeds from previous harvest or local market.",
+      "fertilization_and_tilling": "Low fertilizer requirement; grows well in poor soil.",
+      "irrigation": "Grown as rainfed crop; minimal irrigation requirement.",
+      "crop_rotation_and_intercropping": "Short-duration crop often fitted into various rotations.",
+      "production": "Average yield is about 0.9 tons/hectare.",
+      "climate_and_soil": "Cool climate; adapts to poor soil conditions.",
+      "uses_and_importance": "Used for making flour and traditional dishes; good bee forage.",
+      "main_varieties": [
+        "Mithe",
+        "Tite",
+        "Local landraces"
+      ],
+      "spacing": "30 cm between rows with continuous sowing",
+      "season": "Autumn"
+    },
+    {
+      "name": "Peanut",
+      "category": "Oilseed/Legume Crop",
+      "introduction": "Peanut is grown in sandy soil areas of Terai and river basins in Nepal.",
+      "seed_selection": "Use well-filled pods with viable seeds; treat with fungicide.",
+      "fertilization_and_tilling": "Requires well-prepared loose soil; calcium application beneficial.",
+      "irrigation": "Irrigation needed during flowering and pod development.",
+      "crop_rotation_and_intercropping": "Rotated with cereals; sometimes intercropped with maize.",
+      "production": "Average yield is about 1.2 tons/hectare of unshelled nuts.",
+      "climate_and_soil": "Warm climate; light sandy loam soil.",
+      "uses_and_importance": "Used for oil extraction; consumed roasted, boiled, or processed.",
+      "main_varieties": [
+        "B-4",
+        "Janak",
+        "Valencia",
+        "Local varieties"
+      ],
+      "spacing": "45 cm between rows and 15 cm between plants",
+      "season": "Summer"
+    },
+    {
+      "name": "Cabbage",
+      "category": "Vegetable Crop",
+      "introduction": "Cabbage is a popular vegetable crop grown year-round in different ecological zones of Nepal.",
+      "seed_selection": "Use hybrid seeds for commercial production.",
+      "fertilization_and_tilling": "Requires well-prepared soil with high organic matter.",
+      "irrigation": "Regular irrigation needed; avoid water stress.",
+      "crop_rotation_and_intercropping": "Rotate with non-cruciferous crops; monocropping common.",
+      "production": "Average yield is about 22 tons/hectare.",
+      "climate_and_soil": "Cool climate for head formation; fertile well-drained soil.",
+      "uses_and_importance": "Major vegetable used in various culinary preparations.",
+      "main_varieties": [
+        "Green Coronet",
+        "Green Express",
+        "Pride of India",
+        "Nepal FH-10"
+      ],
+      "spacing": "60 cm between rows and 45 cm between plants",
+      "season": "Winter"
+    },
+    {
+      "name": "Bitter Gourd",
+      "category": "Vegetable Crop",
+      "introduction": "Bitter gourd is a popular summer vegetable grown in the Terai and mid-hills of Nepal.",
+      "seed_selection": "Use seeds from mature fruits of healthy plants.",
+      "fertilization_and_tilling": "Requires rich soil with adequate organic matter; trellising needed.",
+      "irrigation": "Regular irrigation required during fruiting period.",
+      "crop_rotation_and_intercropping": "Rotate with non-cucurbit crops; monocropping common.",
+      "production": "Average yield is about 12 tons/hectare.",
+      "climate_and_soil": "Warm humid climate; well-drained fertile soil.",
+      "uses_and_importance": "Popular vegetable with medicinal properties, especially for diabetes.",
+      "main_varieties": [
+        "Pusa Do Mausami",
+        "Chinese Long",
+        "Local varieties"
+      ],
+      "spacing": "150 cm between rows and 60 cm between plants",
+      "season": "Summer"
+    }
+  ]
+}

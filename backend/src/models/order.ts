@@ -3,6 +3,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 export interface IOrderProduct {
     product: mongoose.Types.ObjectId;
     quantity: number;
+    farmer: mongoose.Types.ObjectId;
 }
 
 export interface IOrder extends Document {
@@ -32,6 +33,11 @@ const orderSchema = new Schema<IOrder>(
                     type: Number,
                     default: 1,
                     min: [1, 'Quantity must be at least 1'],
+                },
+                farmer: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'User',
+                    required: true,
                 },
             },
         ],

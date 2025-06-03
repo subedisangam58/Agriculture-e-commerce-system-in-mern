@@ -115,9 +115,13 @@ function Dashboard() {
     if (loading || !user) return <div className="p-6">Checking authentication...</div>;
 
     return (
-        <div className="flex min-h-screen bg-gray-100 pt-26">
-            <SideNavbar />
-            <main className="flex-1 p-6 ml-0 md:ml-64">
+        <div className="flex h-screen overflow-hidden">
+            <SideNavbar
+                isSidebarOpen={true}
+                toggleSidebar={() => { }}
+                activePage="dashboard"
+            />
+            <main className="flex-1 overflow-y-auto bg-gray-100 p-4 ml-0 md:ml-14">
                 <h1 className="text-3xl font-bold text-gray-800 mb-6">Farmer Dashboard</h1>
 
                 {/* Farm Statistics */}

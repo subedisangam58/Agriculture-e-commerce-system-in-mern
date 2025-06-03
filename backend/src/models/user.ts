@@ -9,7 +9,7 @@ export interface IUser extends Document {
     phone: string;
     address: string;
     role: UserRole;
-    imageUrl?: string; // ✅ added this line
+    imageUrl?: string;
     lastLogin?: Date;
     resetPasswordToken?: string;
     resetPasswordExpiresAt?: Date;

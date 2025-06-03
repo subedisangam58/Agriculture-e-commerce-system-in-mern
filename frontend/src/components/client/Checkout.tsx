@@ -98,7 +98,7 @@ const Checkout = () => {
     };
 
     const khaltiConfig = {
-        publicKey: "test_public_key_xxxxxx", // Replace with your actual public key
+        publicKey: "test_public_key_xxxxxx",
         productIdentity: "1234567890",
         productName: "Farmer Order",
         productUrl: "http://localhost:3000/checkout",
@@ -159,7 +159,7 @@ const Checkout = () => {
 
             <div className="flex-1 overflow-auto">
                 <header className="bg-white shadow-sm">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between items-center py-4">
                             <h2 className="font-semibold text-xl text-gray-800">Checkout</h2>
                             <div className="lg:hidden">
@@ -175,15 +175,14 @@ const Checkout = () => {
                 </header>
 
                 <main className="px-6 md:px-20 py-10 min-h-screen bg-[#fdfced] pt-20">
-                    <div className="flex flex-col lg:flex-row gap-10">
-                        <div className="flex-1 space-y-6">
-                            <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                                Your Items
-                            </h3>
+                    <div className="w-full bg-white p-6 rounded-lg shadow space-y-6">
+                        {/* Your Items */}
+                        <div>
+                            <h3 className="text-xl font-semibold text-gray-800 mb-4">Your Items</h3>
                             {cart.map((item) => (
                                 <div
                                     key={item._id}
-                                    className="bg-white rounded-lg shadow p-4 flex justify-between items-center"
+                                    className="bg-gray-100 rounded p-4 flex justify-between items-center mb-2"
                                 >
                                     <div className="flex items-center gap-4">
                                         <img
@@ -207,8 +206,9 @@ const Checkout = () => {
                             ))}
                         </div>
 
-                        <div className="w-full lg:w-1/3 bg-white p-6 rounded-lg shadow">
-                            <h3 className="text-xl font-semibold mb-4">Shipping Info</h3>
+                        {/* Shipping Info */}
+                        <div>
+                            <h3 className="text-xl font-semibold text-gray-800 mb-4">Shipping Info</h3>
                             <form className="space-y-4">
                                 <div>
                                     <label className="block text-sm font-medium text-gray-600 mb-1">
@@ -256,7 +256,10 @@ const Checkout = () => {
                                     </select>
                                 </div>
                             </form>
+                        </div>
 
+                        {/* Summary */}
+                        <div>
                             <hr className="my-4" />
                             <div className="flex justify-between text-gray-600 mb-2">
                                 <span>Subtotal</span>

@@ -17,8 +17,6 @@ function AddProduct() {
         price: string;
         quantity: string;
         category: string;
-        image: File | null;
-        imagePreview: string | null;
         description: string;
     }
 
@@ -27,10 +25,11 @@ function AddProduct() {
         price: '',
         quantity: '',
         category: '',
-        image: null,
-        imagePreview: null,
         description: ''
     });
+
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const toggleSidebar = () => setIsSidebarOpen(prev => !prev);
 
     useEffect(() => {
         if (!loading && !user) {
@@ -48,31 +47,11 @@ function AddProduct() {
         setProduct(prev => ({ ...prev, [fieldName]: value }));
     };
 
-    const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-        try {
-            const file = e.target.files?.[0];
-            if (!file) return;
-
-            console.log("File selected:", file);
-
-            if (!file.type.startsWith("image/")) {
-                toast.error("Please upload a valid image.");
-                return;
-            }
-
-            const imagePreview = URL.createObjectURL(file);
-            setProduct(prev => ({ ...prev, image: file, imagePreview }));
-        } catch (err) {
-            console.error("Image upload error:", err);
-            toast.error("Error processing image.");
-        }
-    };
-
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!product.name || !product.price || !product.quantity || !product.category || !product.description || !product.image) {
-            toast.error("Please fill all required fields and upload an image.");
+        if (!product.name || !product.price || !product.quantity || !product.category || !product.description) {
+            toast.error("Please fill all required fields.");
             return;
         }
 
@@ -82,7 +61,6 @@ function AddProduct() {
         formData.append('quantity', product.quantity);
         formData.append('category', product.category);
         formData.append('description', product.description);
-        formData.append('image', product.image);
 
         try {
             const res = await fetch("http://localhost:8000/api/products/addproduct", {
@@ -99,12 +77,10 @@ function AddProduct() {
                     price: '',
                     quantity: '',
                     category: '',
-                    image: null,
-                    imagePreview: null,
                     description: ''
                 });
             } else {
-                toast.error(data.message || "Something went wrong");
+                toast.error(data.message || "Something went wrong.");
             }
         } catch (err) {
             toast.error("Server error. Please try again.");
@@ -117,13 +93,24 @@ function AddProduct() {
 
     return (
         <div className="flex min-h-screen bg-gray-100">
-            <SideNavbar />
-            <div className="flex-1 p-6 ml-0 md:ml-64 pt-30">
+            <SideNavbar
+                isSidebarOpen={isSidebarOpen}
+                toggleSidebar={toggleSidebar}
+                activePage="addproduct"
+            />
+            <div className="flex-1 p-6 ml-0 lg:ml-0 pt-16">
                 <h1 className="text-2xl font-bold mb-6">Add New Product</h1>
 
                 <div className="flex flex-col md:flex-row w-full max-w-6xl gap-6">
                     <div className="w-full md:w-1/2">
-                        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                        <form
+                            onSubmit={handleSubmit}
+                            noValidate
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') e.preventDefault();
+                            }}
+                            className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+                        >
                             <div className="mb-4">
                                 <label htmlFor="product-name" className="block text-sm font-medium text-gray-700">Product Name</label>
                                 <input id="product-name" type="text" value={product.name} onChange={handleChange} className="mt-1 block w-full rounded border border-gray-300 p-2" />
@@ -150,20 +137,6 @@ function AddProduct() {
                             </div>
 
                             <div className="mb-4">
-                                <label htmlFor="product-image" className="block text-sm font-medium text-gray-700">Product Image</label>
-                                <input
-                                    id="product-image"
-                                    name="product-image"
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleImageChange}
-                                    className="mt-1 block w-full text-sm text-gray-700 file:border file:border-gray-300 file:p-2 file:rounded file:bg-white"
-                                />
-                            </div>
-
-
-
-                            <div className="mb-4">
                                 <label htmlFor="product-description" className="block text-sm font-medium text-gray-700">Description</label>
                                 <textarea id="product-description" value={product.description} onChange={handleChange} className="mt-1 block w-full rounded border border-gray-300 p-2" rows={4}></textarea>
                             </div>
@@ -176,16 +149,9 @@ function AddProduct() {
                         <div className="bg-white shadow-md rounded px-6 pt-6 pb-8">
                             <h2 className="text-xl font-semibold text-center mb-4">Product Preview</h2>
                             <div className="border rounded p-4">
-                                {product.imagePreview ? (
-                                    <img src={product.imagePreview} alt="Preview" className="mx-auto mb-4 max-h-48 object-contain rounded" />
-                                ) : (
-                                    <div className="h-48 flex items-center justify-center bg-gray-200 rounded mb-4">
-                                        <p className="text-gray-500">Image preview will appear here</p>
-                                    </div>
-                                )}
                                 <h3 className="text-lg font-bold">{product.name || "Product Name"}</h3>
                                 <div className="flex justify-between text-sm my-2">
-                                    <span className="text-blue-600">{product.price ? `$${product.price}` : "$0.00"}</span>
+                                    <span className="text-blue-600">{product.price ? `Rs. ${product.price}` : "Rs. 0.00"}</span>
                                     <span>Stock: {product.quantity || 0}</span>
                                 </div>
                                 <p className="text-sm text-gray-700">{product.category}</p>

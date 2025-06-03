@@ -28,7 +28,7 @@ interface SideNavbarProps {
     activePage: string;
 }
 
-const SideNavbar: FC<SideNavbarProps> = ({
+const SideNavbar: React.FC<SideNavbarProps> = ({
     isSidebarOpen,
     toggleSidebar,
     activePage
@@ -39,7 +39,7 @@ const SideNavbar: FC<SideNavbarProps> = ({
         { id: "overview", name: "Overview", icon: <LayoutDashboard size={20} />, path: "/client/dashboard" },
         { id: "orders", name: "My Orders", icon: <ShoppingCart size={20} />, path: "/client/orderhistory" },
         { id: "cart", name: "My Cart", icon: <ShoppingCart size={20} />, path: "/client/cart" },
-        { id: "notifications", name: "Notifications", icon: <Bell size={20} />, path: "/client/notifications" },
+        { id: "notifications", name: "Notifications", icon: <Bell size={20} />, path: "/notifications" },
         { id: "profile", name: "Profile Settings", icon: <Settings size={20} />, path: "/client/profile" },
         { id: "support", name: "Support", icon: <HelpCircle size={20} />, path: "/client/support" },
     ];

@@ -2,8 +2,10 @@
 
 import React, { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
 
 interface Product {
+    createdBy: any;
     _id: string;
     name: string;
     description: string;
@@ -17,6 +19,7 @@ interface SingleProductProps {
 }
 
 function SingleProduct({ productId }: SingleProductProps) {
+    const { user } = useAuth(); // Access current user
     const [product, setProduct] = useState<Product | null>(null);
     const [related, setRelated] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
@@ -53,7 +56,8 @@ function SingleProduct({ productId }: SingleProductProps) {
     }, [productId, fetchProduct]);
 
     const handleAddToCart = async () => {
-        if (!product) return;
+        if (!product || user?.role !== "user") return;
+
         try {
             const response = await fetch("http://localhost:8000/api/cart/add", {
                 method: "POST",
@@ -91,21 +95,30 @@ function SingleProduct({ productId }: SingleProductProps) {
                             {product.name}
                         </h1>
                         <p className="text-sm text-gray-600 mb-4">
-                            Sold by: <strong>Green Acres Farm</strong> ⭐ 4.5 (120 reviews)
+                            Sold by: <strong>{product.createdBy?.name || "Unknown Seller"}</strong>
                         </p>
                         <p className="text-gray-700 mb-4">{product.description}</p>
                         <hr className="mb-4" />
                         <p className="text-green-600 text-2xl font-bold">
-                            ${product.price.toFixed(2)}{" "}
+                            Rs. {product.price.toFixed(2)}{" "}
                             <span className="text-base font-normal text-gray-600">/ lb</span>
                         </p>
                     </div>
-                    <button
-                        onClick={handleAddToCart}
-                        className="mt-6 bg-orange-500 text-white py-3 rounded hover:bg-orange-600 text-lg font-semibold"
-                    >
-                        🛒 Add to Cart
-                    </button>
+
+                    {user?.role === "user" && (
+                        <button
+                            onClick={handleAddToCart}
+                            className="mt-6 bg-orange-500 text-white py-3 rounded hover:bg-orange-600 text-lg font-semibold"
+                        >
+                            🛒 Add to Cart
+                        </button>
+                    )}
+
+                    {user?.role === "farmer" && (
+                        <p className="mt-6 text-red-500 text-sm">
+                            Only customers can add products to cart.
+                        </p>
+                    )}
                 </div>
             </div>
 
@@ -141,7 +154,7 @@ function SingleProduct({ productId }: SingleProductProps) {
                                     </h3>
                                     <p className="text-sm text-gray-500">Locally Sourced</p>
                                     <p className="text-green-600 font-bold mt-1">
-                                        ${item.price.toFixed(2)}
+                                        Rs. {item.price.toFixed(2)}
                                     </p>
                                     <Link
                                         href={`/products/${item._id}`}

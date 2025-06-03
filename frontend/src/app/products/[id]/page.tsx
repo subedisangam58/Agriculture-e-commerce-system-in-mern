@@ -1,5 +1,7 @@
 import SingleProduct from "@/components/SingleProduct";
 
-export default function SingleProductPage({ params }: { params: { id: string } }) {
-    return <SingleProduct productId={params.id} />;
+export default async function SingleProductPage({ params }: { params: { id: string } }) {
+    const { id } = await params;
+
+    return <SingleProduct productId={id} />;
 }
