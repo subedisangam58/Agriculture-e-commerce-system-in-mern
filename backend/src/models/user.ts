@@ -30,7 +30,7 @@ const userSchema = new Schema<IUser>(
             enum: ['admin', 'farmer', 'user'],
             default: 'user',
         },
-        imageUrl: { type: String }, // ✅ new field for profile picture
+        imageUrl: { type: String }, // new field for profile picture
         lastLogin: { type: Date, default: Date.now },
         resetPasswordToken: { type: String },
         resetPasswordExpiresAt: { type: Date },

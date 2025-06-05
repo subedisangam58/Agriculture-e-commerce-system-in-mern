@@ -2,28 +2,29 @@ import { Router } from 'express';
 import multer from 'multer';
 import {
     signup,
-    verifyEmail,
     login,
     logout,
+    verifyEmail,
     forgotPassword,
     resetPassword,
-    updateProfile,
-    checkAuth
+    checkAuth,
+    updateProfile
 } from '../controllers/auth.controller';
+import { verifyToken } from '../middlewares/auth.middleware';
 
 const router = Router();
 const upload = multer();
 
-// Auth Routes
+// Public Auth Routes
 router.post('/signup', signup);
 router.post('/verify-email', verifyEmail);
 router.post('/login', login);
 router.post('/logout', logout);
 router.post('/forgot-password', forgotPassword);
 router.post('/reset-password/:token', resetPassword);
-router.get('/check-auth', checkAuth);
 
-// ✅ Use multer middleware for multipart/form-data
-router.post('/update-profile', upload.single('image'), updateProfile);
+// Protected Routes
+router.get('/check-auth', verifyToken, checkAuth);
+router.post('/update-profile', verifyToken, upload.single('image'), updateProfile);
 
 export default router;

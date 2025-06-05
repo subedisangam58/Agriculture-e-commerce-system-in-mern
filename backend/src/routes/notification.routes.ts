@@ -1,20 +1,15 @@
 import express from 'express';
-import { protect } from '../middlewares/protect';
 import {
     getUserNotifications,
     markNotificationRead,
     markAllNotificationsRead,
 } from '../controllers/notification.controller';
+import { verifyToken } from '../middlewares/auth.middleware';
 
 const router = express.Router();
 
-// GET /api/notifications - get all notifications for logged-in user
-router.get('/', protect, getUserNotifications);
-
-// PATCH /api/notifications/:id/read - mark a specific notification as read
-router.patch('/:id/read', protect, markNotificationRead);
-
-// PATCH /api/notifications/mark-all-read - mark all notifications as read
-router.patch('/mark-all-read', protect, markAllNotificationsRead);
+router.get('/', verifyToken, getUserNotifications);
+router.patch('/mark-all-read', verifyToken, markAllNotificationsRead);
+router.patch('/:id/read', verifyToken, markNotificationRead);
 
 export default router;

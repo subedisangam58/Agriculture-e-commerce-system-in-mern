@@ -5,12 +5,16 @@ import {
     logUserActivity,
     getHybridRecommendationsController
 } from '../controllers/recommendation.controller';
+import { verifyToken } from '../middlewares/auth.middleware';
 
 const router = express.Router();
 
-router.get('/:productId', getRecommendationsByProduct);
-router.get('/user/:userId', getUserRecommendations);
-router.post('/activity', logUserActivity);
-router.get('/hybrid/:userId', getHybridRecommendationsController);
+router.get('/product/:productId', verifyToken, getRecommendationsByProduct);
+
+router.get('/user', verifyToken, getUserRecommendations);
+
+router.post('/activity', verifyToken, logUserActivity);
+
+router.get('/hybrid', verifyToken, getHybridRecommendationsController);
 
 export default router;

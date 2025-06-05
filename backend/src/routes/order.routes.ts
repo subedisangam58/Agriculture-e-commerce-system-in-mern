@@ -8,28 +8,16 @@ import {
     deleteOrder,
     getOrdersByMe
 } from '../controllers/order.controller';
-import { protect } from '../middlewares/protect';
+import { verifyToken } from '../middlewares/auth.middleware';
 
 const router = express.Router();
 
-// Create a new order (Authenticated users only)
-router.post('/createorder', protect, createOrder);
-
-// Get all orders (Admin or system-level only – extend logic inside controller or middleware)
-router.get('/', protect, getAllOrders);
-
-// Get a single order by ID
-router.get('/:id', protect, getOrderById);
-
-router.get('/user/me', protect, getOrdersByMe);
-
-// Get all orders for a specific user (if logged-in user matches the ID or is admin)
-router.get('/user/:userId', protect, getOrdersByUser);
-
-// Update order status (e.g., to 'Shipped', 'Delivered', etc.)
-router.put('/:id/status', protect, updateOrderStatus);
-
-// Delete an order (optional – admin or owner logic should be inside controller)
-router.delete('/:id', protect, deleteOrder);
+router.post('/createorder', verifyToken, createOrder);
+router.get('/', verifyToken, getAllOrders);
+router.get('/:id', verifyToken, getOrderById);
+router.get('/user/me', verifyToken, getOrdersByMe);
+router.get('/user/:userId', verifyToken, getOrdersByUser);
+router.put('/:id/status', verifyToken, updateOrderStatus);
+router.delete('/:id', verifyToken, deleteOrder);
 
 export default router;

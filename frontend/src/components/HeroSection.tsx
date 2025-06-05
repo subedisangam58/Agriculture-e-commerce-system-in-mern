@@ -59,17 +59,87 @@ function HeroSection() {
     return (
         <div className="bg-[#fdfced]">
             {/* Hero Section */}
-            <section className="pt-32 text-center py-20 px-4">
-                <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-                    Fresh From the Farm, Straight to Your Table
-                </h1>
-                <p className="text-gray-600 max-w-xl mx-auto mb-6">
-                    Discover the best local produce directly from farmers near you. High-quality,
-                    fresh vegetables delivered with care.
-                </p>
-                <a href="/products" className="bg-orange-500 text-white px-6 py-3 rounded hover:bg-orange-600 transition">
-                    Browse Products →
-                </a>
+            <section className="flex flex-col-reverse lg:flex-row items-center justify-between px-16 py-20 bg-gradient-to-b from-[#f3fff6] to-[#e7ffee]">
+                {/* Left Content */}
+                <div className="max-w-xl text-left">
+                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-4">
+                        Fresh Farm<br />Products <span className="text-green-600">Delivered</span>
+                    </h1>
+                    <p className="text-gray-700 mb-6">
+                        Connect directly with local farmers and get the freshest produce, seeds, and agricultural supplies delivered straight from the farm.
+                    </p>
+                    <div className="flex gap-4 flex-wrap">
+                        <a
+                            href="/products"
+                            className="bg-green-600 text-white font-semibold px-6 py-3 rounded hover:bg-green-700 transition"
+                        >
+                            Shop Now
+                        </a>
+                        <a
+                            href="/about"
+                            className="border border-green-600 text-green-600 font-semibold px-6 py-3 rounded hover:bg-green-50 transition"
+                        >
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+
+                {/* Right Image */}
+                <div className="w-full max-w-md mb-12 lg:mb-0">
+                    <img src="farmer.png" alt="Farm Hero" className="rounded-lg w-full h-auto" />
+                </div>
+            </section>
+
+            {/* Why Choose Section */}
+            <section className="bg-white py-20 px-6">
+                <div className="max-w-6xl mx-auto text-center">
+                    <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
+                        Why Choose FreshMarket?
+                    </h2>
+                    <p className="text-gray-500 mb-12">
+                        Direct from farm to your table with guaranteed quality
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {/* Feature 1 */}
+                        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 text-center">
+                            <div className="flex items-center justify-center mb-4">
+                                <div className="bg-green-100 rounded-full p-4">
+                                    <div className="bg-green-600 w-4 h-4 rounded"></div>
+                                </div>
+                            </div>
+                            <h3 className="font-semibold text-lg text-gray-800">Fresh & Organic</h3>
+                            <p className="text-sm text-gray-500 mt-2">
+                                100% organic produce sourced directly from certified organic farms
+                            </p>
+                        </div>
+
+                        {/* Feature 2 */}
+                        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 text-center">
+                            <div className="flex items-center justify-center mb-4">
+                                <div className="bg-blue-100 rounded-full p-4">
+                                    <div className="bg-blue-600 w-4 h-4 rounded"></div>
+                                </div>
+                            </div>
+                            <h3 className="font-semibold text-lg text-gray-800">Fast Delivery</h3>
+                            <p className="text-sm text-gray-500 mt-2">
+                                Same-day delivery available for orders placed before 2 PM
+                            </p>
+                        </div>
+
+                        {/* Feature 3 */}
+                        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 text-center">
+                            <div className="flex items-center justify-center mb-4">
+                                <div className="bg-yellow-100 rounded-full p-4">
+                                    <div className="bg-yellow-500 w-4 h-4 rounded"></div>
+                                </div>
+                            </div>
+                            <h3 className="font-semibold text-lg text-gray-800">Fair Prices</h3>
+                            <p className="text-sm text-gray-500 mt-2">
+                                Direct trade with farmers ensures fair prices for both buyers and sellers
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             {/* Featured Products */}
@@ -102,36 +172,34 @@ function HeroSection() {
             </section>
 
             {/* Personalized Recommendations */}
-            {userId ? (
-                loading ? (
-                    <p className="text-center text-gray-500 mb-10">Loading recommendations...</p>
-                ) : recommended.length > 0 ? (
-                    <section className="px-6 py-10 bg-[#fffaf2]">
-                        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Recommended Products</h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-                            {recommended.map((product) => (
-                                <div key={product._id} className="bg-white rounded-lg shadow-md overflow-hidden">
-                                    <img
-                                        src={product.imageUrl || '/images/placeholder.jpg'}
-                                        alt={product.name}
-                                        className="w-full h-48 object-cover"
-                                    />
-                                    <div className="p-4">
-                                        <h3 className="text-xl font-semibold text-gray-800">{product.name}</h3>
-                                        <p className="text-green-600 font-bold">Rs. {product.price.toFixed(2)}</p>
-                                        <a
-                                            href={`/products/${product._id}`}
-                                            className="mt-4 inline-block text-sm text-white bg-gray-800 px-4 py-2 rounded hover:bg-gray-700"
-                                        >
-                                            View Details
-                                        </a>
-                                    </div>
+            {userId && !loading && recommended.length > 0 && (
+                <section className="px-6 py-10 bg-[#fffaf2]">
+                    <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Recommended Products</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                        {recommended.map((product) => (
+                            <div key={product._id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <img
+                                    src={product.imageUrl || '/images/placeholder.jpg'}
+                                    alt={product.name}
+                                    className="w-full h-48 object-cover"
+                                />
+                                <div className="p-4">
+                                    <h3 className="text-xl font-semibold text-gray-800">{product.name}</h3>
+                                    <p className="text-green-600 font-bold">Rs. {product.price.toFixed(2)}</p>
+                                    <a
+                                        href={`/products/${product._id}`}
+                                        className="mt-4 inline-block text-sm text-white bg-gray-800 px-4 py-2 rounded hover:bg-gray-700"
+                                    >
+                                        View Details
+                                    </a>
                                 </div>
-                            ))}
-                        </div>
-                    </section>
-                ) : null
-            ) : (
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            )}
+
+            {!userId && !loading && (
                 <p className="text-center text-gray-400 mb-10">Sign in to see personalized recommendations.</p>
             )}
 

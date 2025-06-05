@@ -1,17 +1,18 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import Recommendation from '../models/recommendation';
 import UserActivity from '../models/useractivity';
 import Product from '../models/product';
 import { getHybridRecommendations } from '../utils/hybrid';
+import { AuthenticatedRequest } from '../types/CustomRequests';
 
-export const getRecommendationsByProduct = async (req: Request, res: Response): Promise<void> => {
+export const getRecommendationsByProduct = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
     try {
         const { productId } = req.params;
 
         const rec = await Recommendation.findOne({ productId }).populate('recommendedProducts');
 
         if (!rec) {
-            res.status(200).json([]); // No recommendations yet
+            res.status(200).json([]);
             return;
         }
 
@@ -22,9 +23,9 @@ export const getRecommendationsByProduct = async (req: Request, res: Response): 
     }
 };
 
-export const getUserRecommendations = async (req: Request, res: Response): Promise<void> => {
+export const getUserRecommendations = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
     try {
-        const { userId } = req.params;
+        const userId = (req.user as { _id: { toString: () => string } })?._id.toString();
 
         const history = await UserActivity.find({
             userId,
@@ -33,7 +34,7 @@ export const getUserRecommendations = async (req: Request, res: Response): Promi
             .sort({ timestamp: -1 })
             .limit(5);
 
-        const productIds = history.map((h) => h.productId);
+        const productIds = history.map(h => h.productId);
 
         if (productIds.length === 0) {
             res.status(200).json([]);
@@ -41,7 +42,7 @@ export const getUserRecommendations = async (req: Request, res: Response): Promi
         }
 
         const baseProducts = await Product.find({ _id: { $in: productIds } });
-        const categories = baseProducts.map((p) => p.category);
+        const categories = baseProducts.map(p => p.category);
 
         const recommendations = await Product.find({
             category: { $in: categories },
@@ -55,11 +56,12 @@ export const getUserRecommendations = async (req: Request, res: Response): Promi
     }
 };
 
-export const logUserActivity = async (req: Request, res: Response): Promise<void> => {
+export const logUserActivity = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
     try {
-        const { userId, productId, action } = req.body;
+        const userId = (req.user as { _id: { toString: () => string } })?._id.toString();
+        const { productId, action } = req.body;
 
-        if (!userId || !productId || !action) {
+        if (!productId || !action || !userId) {
             res.status(400).json({ message: 'Missing required fields' });
             return;
         }
@@ -74,9 +76,9 @@ export const logUserActivity = async (req: Request, res: Response): Promise<void
     }
 };
 
-export const getHybridRecommendationsController = async (req: Request, res: Response) => {
+export const getHybridRecommendationsController = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
     try {
-        const { userId } = req.params;
+        const userId = (req.user as { _id: { toString: () => string } })?._id.toString();
         const recommendations = await getHybridRecommendations(userId);
         res.status(200).json(recommendations);
     } catch (error) {
